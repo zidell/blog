@@ -36,12 +36,12 @@
     <div class="post-navigation">
         <div class="prev">
             {% if page.previous %}
-            <a href="{{ page.previous.url }}">&larr; 이전글: {{ page.previous.title }}</a>
+            <a href="{{site.baseurl}}{{ page.previous.url }}">&larr; 이전글: {{ page.previous.title }}</a>
             {% endif %}
         </div>
         <div class="next">
             {% if page.next %}
-            <a href="{{ page.next.url }}">다음글: {{ page.next.title }} &rarr;</a>
+            <a href="{{site.baseurl}}{{ page.next.url }}">다음글: {{ page.next.title }} &rarr;</a>
             {% endif %}
         </div>
     </div>
