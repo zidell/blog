@@ -4,6 +4,25 @@
 <head>
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
+    <style>
+        .post-navigation {
+            margin: 2em 0;
+            padding: 1em 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .post-navigation a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .post-navigation a:hover {
+            color: #0066cc;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,6 +31,21 @@
     <div>
         {{ content }}
     </div>
+
+    {% if page.path contains '_posts' %}
+    <div class="post-navigation">
+        <div class="prev">
+            {% if page.previous %}
+            <a href="{{ page.previous.url }}">&larr; 이전글: {{ page.previous.title }}</a>
+            {% endif %}
+        </div>
+        <div class="next">
+            {% if page.next %}
+            <a href="{{ page.next.url }}">다음글: {{ page.next.title }} &rarr;</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
 </body>
 
 </html>
