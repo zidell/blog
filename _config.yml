@@ -29,7 +29,8 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 sass:
-  style: compressed # 또는 expanded
+  sass_dir: _sass
+  style: compressed
 # Build settings
 # theme: 
 plugins:
