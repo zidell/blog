@@ -1,24 +1,40 @@
-body {
-    background: red;
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.tag-list {
-    margin: 1rem 0;
-    text-align: center;
-}
-
-.tag {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    margin: 0.2rem;
-    background-color: #f0f0f0;
-    border-radius: 20px;
-    color: #333;
+a {
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: background-color 0.2s;
+    color: #222;
+}
 
-    &:hover {
-        background-color: #e0e0e0;
+h1 {
+    letter-spacing: -0.08rem;
+}
+
+body {
+    font-family: 'SUIT-Regular';
+    max-width: 800px !important;
+}
+
+.fs-2x {
+    font-size: calc(1.375rem + 2vw);
+}
+
+.fs-3x {
+    font-size: calc(1.375rem + 3vw);
+}
+
+.bottom-link {
+    border-top: 1px solid #ddd;
+
+    >* {
+        padding: 0.2rem 0;
+    }
+
+    >a {
+        text-decoration: underline !important;
     }
 }

@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<div class="page-header mb-4 opacity-75">
+    <h1 class="fs-3x">{{page.title}}</h1>
+    <div class="post-meta opacity-50 fs-xs mt-1">{{ page.date | date: "%Y-%m-%d" }}</div>
+</div>
+
+<div class="page-content fs-5">
+    {{ content }}
+</div>
+
+{% if page.path contains '_posts' %}
+<div class="bottom-link mt-5 pt-5">
+    {% if page.next %}
+    <a class="d-block" href="{{site.baseurl}}{{ page.next.url }}">다음글: {{ page.next.title }}</a>
+    {% endif %}
+    <div class="opacity-50">
+        현재글 : {{ page.title}}
+    </div>
+    {% if page.previous %}
+    <a class="d-block" href="{{site.baseurl}}{{ page.previous.url }}">이전글: {{ page.previous.title }}</a>
+    {% endif %}
+</div>
+{% endif %}
