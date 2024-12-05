@@ -4,33 +4,18 @@
 <head>
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
-    <style>
-        a {
-            color: orange;
-        }
-
-        .post-navigation {
-            margin: 2em 0;
-            padding: 1em 0;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .post-navigation a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .post-navigation a:hover {
-            color: #0066cc;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ '/assets/css/loader.css' | relative_url }}">
 </head>
 
 <body>
     <h1><a href="{{site.baseurl}}/">MyBlog</a></h1>
+
+    <div class="tag-list">
+        {% assign tags = site.tags | sort %}
+        {% for tag in tags %}
+        <a href="{{ site.baseurl }}/tags/{{ tag[0] }}" class="tag">{{ tag[0] }} ({{ tag[1].size }})</a>
+        {% endfor %}
+    </div>
 
     <div>
         {{ content }}
@@ -38,16 +23,16 @@
 
     {% if page.path contains '_posts' %}
     <div class="post-navigation">
+        {% if page.previous %}
         <div class="prev">
-            {% if page.previous %}
             <a href="{{site.baseurl}}{{ page.previous.url }}">&larr; 이전글: {{ page.previous.title }}</a>
-            {% endif %}
         </div>
+        {% endif %}
+        {% if page.next %}
         <div class="next">
-            {% if page.next %}
             <a href="{{site.baseurl}}{{ page.next.url }}">다음글: {{ page.next.title }} &rarr;</a>
-            {% endif %}
         </div>
+        {% endif %}
     </div>
     {% endif %}
 </body>

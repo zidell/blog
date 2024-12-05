@@ -3,6 +3,7 @@ layout: default
 title:  "image test!"
 date:   2024-12-03 19:14:11 +0900
 categories: jekyll test
+tags: [테스트, 이미지]
 ---
 
 나는 누구인가
