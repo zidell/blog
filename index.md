@@ -11,7 +11,7 @@ title: Home
       <div class="post-excerpt opacity-50">
         {{ post.excerpt | strip_html | truncatewords: 50 }}
         </div>
-        <div class="post-meta opacity-50 fs-xs mt-1">{{ post.date | date: "%Y-%m-%d" }}</div>
+        <div class="post-meta opacity-50 fs-xs mt-1">{{ post.date | date: "%B %d, %Y" }}</div>
         </a>
     </li>
   {% endfor %}
