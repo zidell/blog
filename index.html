@@ -1,0 +1,47 @@
+---
+layout: default
+title: Home
+---
+<!-- https://jekyllrb-ko.github.io/docs/variables/ -->
+<ul id="list-posts" class="list-unstyled">
+    {% for post in paginator.posts %}
+    <li class="my-5">
+        <div class="post-meta opacity-50 fs-sm mb-1">{{ post.date | date: "%B %d, %Y" }}</div>
+        <a href="{{site.baseurl}}{{ post.url }}" class="d-block list-item">
+            <h2 class="fs-4 fw-bold text-decoration-underline">{{ post.title }}</h2>
+            <div class="post-excerpt opacity-75">
+                {{ post.excerpt | strip_html | truncatewords: 50 }}
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+
+    <!-- Pagination links -->
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination d-flex justify-content-center gap-2 mt-5">
+        {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="btn btn-link text-decoration-none">&laquo;
+            Prev</a>
+        {% endif %}
+
+        {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+        <span class="btn btn-primary">{{ page }}</span>
+        {% else %}
+        {% if page == 1 %}
+        <a href="{{ '/' | relative_url }}" class="btn btn-link text-decoration-none">{{ page }}</a>
+        {% else %}
+        <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}"
+            class="btn btn-link text-decoration-none">{{
+            page }}</a>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="btn btn-link text-decoration-none">Next
+            &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</ul>
