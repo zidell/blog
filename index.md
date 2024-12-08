@@ -6,12 +6,12 @@ title: Home
 <ul class="list-unstyled">
   {% for post in site.posts %}
     <li class="my-5">
+        <div class="post-meta opacity-50 fs-sm mb-1">{{ post.date | date: "%B %d, %Y" }}</div>
         <a href="{{site.baseurl}}{{ post.url }}" class="d-block">
       <h2 class="fs-4 fw-bold text-decoration-underline">{{ post.title }}</h2>
       <div class="post-excerpt opacity-50">
         {{ post.excerpt | strip_html | truncatewords: 50 }}
         </div>
-        <div class="post-meta opacity-50 fs-xs mt-1">{{ post.date | date: "%B %d, %Y" }}</div>
         </a>
     </li>
   {% endfor %}
