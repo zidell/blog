@@ -27,8 +27,38 @@
     </div>
 
     <footer id="footer" class="text-center fs-xs mt-5 py-5 opacity-50">
-        copyright &copy; {{ site.time | date: "%Y" }}
+        <div id="copyright">
+            copyright &copy; {{ site.time | date: "%Y" }}
+        </div>
+        <div class="mt-3">
+            <button id="theme-toggler" class="btn btn-sm btn-outline-secondary"></button>
+        </div>
     </footer>
+
+    <script>
+        (() => {
+            const getTheme = () => {
+                return localStorage.theme || (!!window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+            }
+
+            const applyTheme = (newTheme) => {
+                const btn = document.querySelector('#theme-toggler');
+                btn.innerHTML = `${newTheme} mode`;
+                document.documentElement.classList.remove(`mode-dark`, `mode-light`);
+                document.documentElement.classList.add(`mode-${newTheme}`);
+                localStorage.theme = newTheme;
+            }
+
+            const btn = document.querySelector('#theme-toggler');
+            btn.addEventListener('click', () => {
+                const currentTheme = getTheme();
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+
+            applyTheme(getTheme());
+        })();
+    </script>
 
 </body>
 
