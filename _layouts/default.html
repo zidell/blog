@@ -43,7 +43,7 @@
 
             const applyTheme = (newTheme) => {
                 const btn = document.querySelector('#theme-toggler');
-                btn.innerHTML = `${newTheme} mode`;
+                btn.innerHTML = `Change theme to ${newTheme === 'dark' ? 'light' : 'dark'}`;
                 document.documentElement.classList.remove(`mode-dark`, `mode-light`);
                 document.documentElement.classList.add(`mode-${newTheme}`);
                 localStorage.theme = newTheme;
