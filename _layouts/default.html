@@ -13,11 +13,21 @@
 
 <body class="container">
     <header id="header" class="d-flex justify-content-between align-items-end lh-1 pt-5 pb-5">
-        <a id="logo" class="fs-3 fw-bold opacity-50" href="{{site.baseurl}}/">{{ site.title }}</a>
+        <a id="logo" class="fw-bold opacity-50" href="{{site.baseurl}}/">{{ site.title }}</a>
         <nav id="tags">
-            <a href="{{ site.baseurl }}/tags/ux" class="tag d-inline-block p-1">UI/UX({{ site.tags['ux'].size | default: 0 }})</a>
-            <a href="{{ site.baseurl }}/tags/business" class="tag d-inline-block p-1">Business({{ site.tags['business'].size | default: 0 }})</a>
-            <a href="{{ site.baseurl }}/tags/dev" class="tag d-inline-block p-1">Development({{ site.tags['dev'].size | default: 0 }})</a>
+			<div class="d-block d-md-none">
+				<select class="form-select" onchange="location.href=this.value">
+					<option value="{{ site.baseurl }}/">All</option>
+					<option value="{{ site.baseurl }}/tags/ux">UI/UX ({{ site.tags['ux'].size | default: 0 }})</option>
+					<option value="{{ site.baseurl }}/tags/business">Business ({{ site.tags['business'].size | default: 0 }})</option>
+					<option value="{{ site.baseurl }}/tags/dev">Development ({{ site.tags['dev'].size | default: 0 }})</option>
+				</select>
+			</div>
+			<div class="d-none d-md-block">
+				<a href="{{ site.baseurl }}/tags/ux" class="tag d-inline-block p-1">UI/UX({{ site.tags['ux'].size | default: 0 }})</a>
+				<a href="{{ site.baseurl }}/tags/business" class="tag d-inline-block p-1">Business({{ site.tags['business'].size | default: 0 }})</a>
+				<a href="{{ site.baseurl }}/tags/dev" class="tag d-inline-block p-1">Development({{ site.tags['dev'].size | default: 0 }})</a>
+			</div>
         </nav>
     </header>
 
@@ -56,6 +66,22 @@
             });
 
             applyTheme(getTheme());
+        })();
+
+        // 현재 경로에 따라 select 옵션 활성화하기
+        (() => {
+            const currentPath = window.location.pathname;
+            const select = document.querySelector('.form-select');
+            
+            if (select) {
+                const options = select.options;
+                for (let i = 1; i < options.length; i++) {
+                    if (currentPath.includes('/tags/') && currentPath.includes(options[i].value)) {
+                        select.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
         })();
     </script>
 
