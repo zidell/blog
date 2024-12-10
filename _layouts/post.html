@@ -12,6 +12,10 @@ layout: default
     <div class="contents">
         {{ content }}
     </div>
+
+	<hr class="pb-4 mt-5" />
+
+	<div id="comments"></div>
 </div>
 
 {% if page.path contains '_posts' %}
@@ -27,3 +31,24 @@ layout: default
     {% endif %}
 </div>
 {% endif %}
+
+
+<script>
+function loadComments(theme) {
+	const script = document.createElement('script');
+	script.src = 'https://utteranc.es/client.js';
+	script.setAttribute('repo', 'zidell/blog');
+	script.setAttribute('issue-term', 'pathname'); // 이 부분 확인
+	script.setAttribute('theme', theme);
+	script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    const commentsDiv = document.getElementById('comments');
+    commentsDiv.innerHTML = ''; // 기존 스크립트를 제거
+    commentsDiv.appendChild(script);
+}
+
+  // 초기 로드
+  const theme = `github-${localStorage.theme}`;
+  loadComments(theme);
+</script>
