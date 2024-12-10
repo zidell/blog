@@ -98,7 +98,7 @@ h1 {
 		figcaption {
 			display: block;
 			text-align: center;
-			font-size: 0.85rem;
+			font-size: 0.9rem;
 			opacity: 0.5;
 			margin-top: 0.3rem;;
 			margin-bottom: 1rem;;
@@ -156,7 +156,8 @@ div.highlight {
 	padding: 1rem;
 }
 .highlight * {
-	font-size: 0.8rem;
+	font-size: 0.85rem;
+	line-height: 1.5rem;
 }
 .highlight, .highlight pre {
 	margin-bottom: 0;
