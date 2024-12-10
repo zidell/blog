@@ -59,3 +59,7 @@ plugins:
 # Pagination settings
 paginate: 12
 paginate_path: "/page/:num/"
+
+# Tag settings
+tag_page_layout: tag
+tag_page_dir: tags

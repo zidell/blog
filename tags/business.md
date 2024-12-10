@@ -1,5 +1,5 @@
 ---
 layout: tag
-tag: 비즈니스
+tag: business
 permalink: /tags/business/
 ---
