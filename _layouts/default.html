@@ -56,18 +56,41 @@
 				}, 'https://utteranc.es');
 			}
 		}
-		window.loadComments = (theme) => {
+		window.initOnPostPage = () => {
+			// 주소가 본문용 주소인지 확인
+			// #post-page 가 있으면 본문용 스크립트 실행
+			if (!document.querySelector('#post-page')) {
+				return;
+			}
+
+			// 댓글 로드
 			const script = document.createElement('script');
 			script.src = 'https://utteranc.es/client.js';
 			script.setAttribute('repo', 'zidell/blog');
 			script.setAttribute('issue-term', 'pathname'); // 이 부분 확인
-			script.setAttribute('theme', theme);
+			script.setAttribute('theme', `github-${localStorage.theme}`);
 			script.setAttribute('crossorigin', 'anonymous');
 			script.async = true;
 		
 			const commentsDiv = document.getElementById('comments');
 			commentsDiv.innerHTML = ''; // 기존 스크립트를 제거
-			commentsDiv.appendChild(script);
+			commentsDiv.appendChild(script);			
+
+			// 이미지 캡션 활성화
+			const images = document.querySelectorAll('img');
+			images.forEach(img => {
+				if (img.alt && !img.closest('figure')) {
+					const figure = document.createElement('figure');
+					const figcaption = document.createElement('figcaption');
+					figcaption.textContent = img.alt;
+					
+					const clonedImg = img.cloneNode(true);
+					figure.appendChild(clonedImg);
+					figure.appendChild(figcaption);
+					
+					img.parentNode.replaceChild(figure, img);
+				}
+			});
 		}
 
 		window.pjax = (url) => {
@@ -84,6 +107,8 @@
 					if (newContent) {
 						const currentContent = document.querySelector('#content');
 						currentContent.innerHTML = newContent.innerHTML;
+
+						window.initOnPostPage();
 					}
 				}
 			};

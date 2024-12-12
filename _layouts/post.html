@@ -31,29 +31,3 @@ layout: default
     {% endif %}
 </div>
 {% endif %}
-
-
-<script>
-	(() => {
-		// 댓글 로드
-		  const theme = `github-${localStorage.theme}`;
-		  window.loadComments(theme);
-
-		  // 이미지 캡션 활성화
-		  const images = document.querySelectorAll('img');
-		  images.forEach(img => {
-			if (img.alt && !img.closest('figure')) {
-				const figure = document.createElement('figure');
-				const figcaption = document.createElement('figcaption');
-				figcaption.textContent = img.alt;
-				
-				const clonedImg = img.cloneNode(true);
-				figure.appendChild(clonedImg);
-				figure.appendChild(figcaption);
-				
-				img.parentNode.replaceChild(figure, img);
-			}
-		  });
-	})();
-</script>
-
