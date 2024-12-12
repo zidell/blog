@@ -47,6 +47,49 @@
     </footer>
 
     <script>
+		window.changeUtterancesTheme = (theme) => {
+			const iframe = document.querySelector('iframe.utterances-frame');
+			if (iframe) {
+				iframe.contentWindow.postMessage({
+					type: 'set-theme',
+					theme: theme
+				}, 'https://utteranc.es');
+			}
+		}
+		window.loadComments = (theme) => {
+			const script = document.createElement('script');
+			script.src = 'https://utteranc.es/client.js';
+			script.setAttribute('repo', 'zidell/blog');
+			script.setAttribute('issue-term', 'pathname'); // 이 부분 확인
+			script.setAttribute('theme', theme);
+			script.setAttribute('crossorigin', 'anonymous');
+			script.async = true;
+		
+			const commentsDiv = document.getElementById('comments');
+			commentsDiv.innerHTML = ''; // 기존 스크립트를 제거
+			commentsDiv.appendChild(script);
+		}
+
+		window.pjax = (url) => {
+			const xhr = new XMLHttpRequest();
+			xhr.open('GET', url);
+			xhr.onload = () => {
+				if (xhr.status === 200) {
+					// 임시 div에 응답 HTML을 파싱
+					const tempDiv = document.createElement('div');
+					tempDiv.innerHTML = xhr.responseText;
+					
+					// #content 내용 추출
+					const newContent = tempDiv.querySelector('#content');
+					if (newContent) {
+						const currentContent = document.querySelector('#content');
+						currentContent.innerHTML = newContent.innerHTML;
+					}
+				}
+			};
+			xhr.send();
+		}
+
         (() => {
             const getTheme = () => {
                 return localStorage.theme || (!!window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
@@ -86,6 +129,28 @@
                 }
             }
         })();
+
+		// pjax 구성
+		(() => {
+			document.addEventListener('click', (e) => {
+				// a 태그 클릭 이벤트 처리
+				const link = e.target.closest('a');
+				if (!link) return;
+
+				// 같은 도메인인지 체크
+				const url = new URL(link.href);
+				if (url.origin !== window.location.origin) return;
+
+				e.preventDefault();
+
+				// XHR 요청으로 페이지 가져오기
+				window.pjax(url.href);
+				history.pushState({}, '', url.href);
+			});
+			window.addEventListener('popstate', (e) => {
+				window.pjax(window.location.href);
+			});
+		})();
     </script>
 
 </body>

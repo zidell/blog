@@ -34,33 +34,10 @@ layout: default
 
 
 <script>
-	window.changeUtterancesTheme = (theme) => {
-		const iframe = document.querySelector('iframe.utterances-frame');
-		if (iframe) {
-			iframe.contentWindow.postMessage({
-				type: 'set-theme',
-				theme: theme
-			}, 'https://utteranc.es');
-		}
-	}
-
 	(() => {
 		// 댓글 로드
-		function loadComments(theme) {
-			const script = document.createElement('script');
-			script.src = 'https://utteranc.es/client.js';
-			script.setAttribute('repo', 'zidell/blog');
-			script.setAttribute('issue-term', 'pathname'); // 이 부분 확인
-			script.setAttribute('theme', theme);
-			script.setAttribute('crossorigin', 'anonymous');
-			script.async = true;
-		
-			const commentsDiv = document.getElementById('comments');
-			commentsDiv.innerHTML = ''; // 기존 스크립트를 제거
-			commentsDiv.appendChild(script);
-		}
 		  const theme = `github-${localStorage.theme}`;
-		  loadComments(theme);
+		  window.loadComments(theme);
 
 		  // 이미지 캡션 활성화
 		  const images = document.querySelectorAll('img');
