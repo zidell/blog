@@ -34,6 +34,16 @@ layout: default
 
 
 <script>
+	window.changeUtterancesTheme = (theme) => {
+		const iframe = document.querySelector('iframe.utterances-frame');
+		if (iframe) {
+			iframe.contentWindow.postMessage({
+				type: 'set-theme',
+				theme: theme
+			}, 'https://utteranc.es');
+		}
+	}
+
 	(() => {
 		// 댓글 로드
 		function loadComments(theme) {
@@ -51,16 +61,6 @@ layout: default
 		}
 		  const theme = `github-${localStorage.theme}`;
 		  loadComments(theme);
-
-		  window.changeUtterancesTheme = (theme) => {
-			const iframe = document.querySelector('iframe.utterances-frame');
-			if (iframe) {
-				iframe.contentWindow.postMessage({
-					type: 'set-theme',
-					theme: theme
-				}, 'https://utteranc.es');
-			}
-		}
 
 		  // 이미지 캡션 활성화
 		  const images = document.querySelectorAll('img');
