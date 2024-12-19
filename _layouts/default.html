@@ -106,8 +106,11 @@
 			const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
 			xhr.onload = () => {
-				window.urlRequestCached[url] = true;
-				
+				if (isCache) {
+					window.urlRequestCached[url] = true;
+					return;
+				}
+
 				// 임시 div에 응답 HTML을 파싱
 				const tempDiv = document.createElement('div');
 				tempDiv.innerHTML = xhr.responseText;
