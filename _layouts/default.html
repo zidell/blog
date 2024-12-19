@@ -96,37 +96,31 @@
 		}
 
 		window.urlRequestCached = {};
-		window.urlRequest = (url, callback) => {
-			if (window.urlRequestCached[url]) {
-				typeof callback === 'function' && callback(window.urlRequestCached[url]);
+		window.pjax = (url, isCache = false) => {
+			if (isCache && window.urlRequestCached[url]) {
 				return;
 			}
 			const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
 			xhr.onload = () => {
-				window.urlRequestCached[url] = xhr.responseText;
-				typeof callback === 'function' && callback(xhr.responseText);
-			};
-			xhr.send();
-		}
-		window.pjax = (url, isCache = false) => {
-			window.urlRequest(url, html => {
 				if (isCache) {
+					window.urlRequestCached[url] = true;
 					return;
 				}
 				// 임시 div에 응답 HTML을 파싱
 				const tempDiv = document.createElement('div');
-				tempDiv.innerHTML = html;
+				tempDiv.innerHTML = xhr.responseText;
 				
 				// #content 내용 추출
 				const newContent = tempDiv.querySelector('#content');
 				if (newContent) {
 					const currentContent = document.querySelector('#content');
 					currentContent.innerHTML = newContent.innerHTML;
-
+	
 					window.initPageAfterPjax();
 				}
-			});
+			};
+			xhr.send();
 		}
 
         (() => {
