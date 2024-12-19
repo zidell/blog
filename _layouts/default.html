@@ -97,16 +97,17 @@
 
 		window.urlRequestCached = {};
 		window.pjax = (url, isCache = false) => {
-			if (isCache && window.urlRequestCached[url]) {
-				return;
+			if (isCache){
+				if (window.urlRequestCached[url]) {
+					return;
+				}
+				window.urlRequestCached[url] = true;
 			}
 			const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
 			xhr.onload = () => {
-				if (isCache) {
-					window.urlRequestCached[url] = true;
-					return;
-				}
+				window.urlRequestCached[url] = true;
+				
 				// 임시 div에 응답 HTML을 파싱
 				const tempDiv = document.createElement('div');
 				tempDiv.innerHTML = xhr.responseText;
