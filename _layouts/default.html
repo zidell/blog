@@ -115,9 +115,17 @@
 				const tempDiv = document.createElement('div');
 				tempDiv.innerHTML = xhr.responseText;
 				
-				// #content 내용 추출
+				// 제목과 컨텐츠 내용 추출
+				const newTitle = tempDiv.querySelector('title');
 				const newContent = tempDiv.querySelector('#content');
+				
 				if (newContent) {
+					// 제목 업데이트
+					if (newTitle) {
+						document.title = newTitle.textContent;
+					}
+					
+					// 컨텐츠 업데이트
 					const currentContent = document.querySelector('#content');
 					currentContent.innerHTML = newContent.innerHTML;
 	
