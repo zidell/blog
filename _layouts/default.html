@@ -192,6 +192,7 @@
 				window.pjax(url.href, false);
 				history.pushState({}, '', url.href);
 			});
+			let mouseoverTimer = null;
 			document.addEventListener('mouseover', (e) => {
 				const link = e.target.closest('a');
 				if (!link) return;
@@ -202,8 +203,12 @@
 
 				e.preventDefault();
 
-				// cache를 일으키기 위하여 페이지 가져오기
-				window.pjax(url.href, true);
+				// 20ms 이상 머무를 때만 실행
+				!!mouseoverTimer && clearTimeout(mouseoverTimer);
+				mouseoverTimer = setTimeout(() => {
+					// cache를 일으키기 위하여 페이지 가져오기
+					window.pjax(url.href, true);
+				}, 50);
 			});
 			window.addEventListener('popstate', (e) => {
 				window.pjax(window.location.href, false);
